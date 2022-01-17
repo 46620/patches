@@ -1,0 +1,143 @@
+*** zen-kernel/arch/x86/kvm/vmx/vmx.c	2022-01-09 17:48:38.210045396 -0500
+--- zen-kernel/arch/x86/kvm/vmx/vmx.c	2022-01-09 19:24:41.174628985 -0500
+***************
+*** 2411,2417 ****
+  	      CPU_BASED_MWAIT_EXITING |
+  	      CPU_BASED_MONITOR_EXITING |
+  	      CPU_BASED_INVLPG_EXITING |
+! 	      CPU_BASED_RDPMC_EXITING;
+
+  	opt = CPU_BASED_TPR_SHADOW |
+  	      CPU_BASED_USE_MSR_BITMAPS |
+--- 2411,2418 ----
+  	      CPU_BASED_MWAIT_EXITING |
+  	      CPU_BASED_MONITOR_EXITING |
+  	      CPU_BASED_INVLPG_EXITING |
+! 	      CPU_BASED_RDPMC_EXITING |
+! 		  CPU_BASED_RDTSC_EXITING;
+
+  	opt = CPU_BASED_TPR_SHADOW |
+  	      CPU_BASED_USE_MSR_BITMAPS |
+***************
+*** 5529,5534 ****
+--- 5530,5570 ----
+  	return 1;
+  }
+
++ static u32 print_once = 1;
++
++ static int handle_rdtsc(struct kvm_vcpu *vcpu)
++ {
++ 	static u64 rdtsc_fake = 0;
++ 	static u64 rdtsc_prev = 0;
++ 	u64 rdtsc_real = rdtsc();
++
++ 	if(print_once)
++ 	{
++ 		printk("[handle_rdtsc] fake rdtsc vmx function is working\n");
++ 		print_once = 0;
++ 		rdtsc_fake = rdtsc_real;
++ 	}
++
++ 	if(rdtsc_prev != 0)
++ 	{
++ 		if(rdtsc_real > rdtsc_prev)
++ 		{
++ 			u64 diff = rdtsc_real - rdtsc_prev;
++ 			u64 fake_diff =  diff / 16; // if you have 4.2Ghz on your vm, change 16 to 20
++ 			rdtsc_fake += fake_diff;
++ 		}
++ 	}
++ 	if(rdtsc_fake > rdtsc_real)
++ 	{
++ 		rdtsc_fake = rdtsc_real;
++ 	}
++ 	rdtsc_prev = rdtsc_real;
++     	vcpu->arch.regs[VCPU_REGS_RAX] = rdtsc_fake & -1u;
++     	vcpu->arch.regs[VCPU_REGS_RDX] = (rdtsc_fake >> 32) & -1u;
++
++     	return skip_emulated_instruction(vcpu);
++ }
++
+  /*
+   * The exit handlers return 1 if the exit was handled fully and guest execution
+   * may resume.  Otherwise they set the kvm_run parameter to indicate what needs
+***************
+*** 5586,5591 ****
+--- 5622,5628 ----
+  	[EXIT_REASON_PREEMPTION_TIMER]	      = handle_preemption_timer,
+  	[EXIT_REASON_ENCLS]		      = handle_encls,
+  	[EXIT_REASON_BUS_LOCK]                = handle_bus_lock_vmexit,
++ 	[EXIT_REASON_RDTSC]		= handle_rdtsc,
+  };
+
+  static const int kvm_vmx_max_exit_handlers =
+
+*** zen-kernel/arch/x86/kvm/svm/svm.c	2022-01-09 17:48:38.209045378 -0500
+--- zen-kernel/arch/x86/kvm/svm/svm.c	2022-01-09 17:36:45.292676349 -0500
+***************
+*** 1208,1213 ****
+--- 1208,1214 ----
+  	svm_set_intercept(svm, INTERCEPT_XSETBV);
+  	svm_set_intercept(svm, INTERCEPT_RDPRU);
+  	svm_set_intercept(svm, INTERCEPT_RSM);
++ 	svm_set_intercept(svm, INTERCEPT_RDTSC);
+
+  	if (!kvm_mwait_in_guest(vcpu->kvm)) {
+  		svm_set_intercept(svm, INTERCEPT_MONITOR);
+***************
+*** 3052,3057 ****
+--- 3053,3094 ----
+  	return kvm_handle_invpcid(vcpu, type, gva);
+  }
+
++ static u32 print_once = 1;
++
++ static int handle_rdtsc_interception(struct kvm_vcpu *vcpu)
++ {
++     	static u64 rdtsc_fake = 0;
++ 	static u64 rdtsc_prev = 0;
++ 	u64 rdtsc_real = rdtsc();
++
++ 	if(print_once)
++ 	{
++ 		printk("[handle_rdtsc] fake rdtsc svm function is working\n");
++ 		print_once = 0;
++ 		rdtsc_fake = rdtsc_real;
++ 	}
++
++ 	if(rdtsc_prev != 0)
++ 	{
++ 		if(rdtsc_real > rdtsc_prev)
++ 		{
++ 			u64 diff = rdtsc_real - rdtsc_prev;
++ 			u64 fake_diff =  diff / 16; // if you have 3.2Ghz on your vm, change 20 to 16
++ 			rdtsc_fake += fake_diff;
++ 		}
++ 	}
++ 	if(rdtsc_fake > rdtsc_real)
++ 	{
++ 		rdtsc_fake = rdtsc_real;
++ 	}
++ 	rdtsc_prev = rdtsc_real;
++
++ 	vcpu->arch.regs[VCPU_REGS_RAX] = rdtsc_fake & -1u;
++     	vcpu->arch.regs[VCPU_REGS_RDX] = (rdtsc_fake >> 32) & -1u;
++
++     	return skip_emulated_instruction(vcpu);
++ }
++
+  static int (*const svm_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+  	[SVM_EXIT_READ_CR0]			= cr_interception,
+  	[SVM_EXIT_READ_CR3]			= cr_interception,
+***************
+*** 3124,3129 ****
+--- 3161,3167 ----
+  	[SVM_EXIT_AVIC_INCOMPLETE_IPI]		= avic_incomplete_ipi_interception,
+  	[SVM_EXIT_AVIC_UNACCELERATED_ACCESS]	= avic_unaccelerated_access_interception,
+  	[SVM_EXIT_VMGEXIT]			= sev_handle_vmgexit,
++ 	[SVM_EXIT_RDTSC]			= handle_rdtsc_interception,
+  };
+
+  static void dump_vmcb(struct kvm_vcpu *vcpu)
+
