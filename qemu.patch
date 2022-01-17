@@ -1,0 +1,263 @@
+diff --color --color -crB qemu-git-base/src/qemu/block/bochs.c qemu-git/src/qemu/block/bochs.c
+*** qemu/block/bochs.c	2022-01-10 18:28:54.659361494 -0500
+--- qemu/block/bochs.c	2022-01-10 18:45:09.788281945 -0500
+***************
+*** 31,37 ****
+  
+  /**************************************************************/
+  
+! #define HEADER_MAGIC "Bochs Virtual HD Image"
+  #define HEADER_VERSION 0x00020000
+  #define HEADER_V1 0x00010000
+  #define HEADER_SIZE 512
+--- 31,37 ----
+  
+  /**************************************************************/
+  
+! #define HEADER_MAGIC "<WOOT> Virtual HD Image"
+  #define HEADER_VERSION 0x00020000
+  #define HEADER_V1 0x00010000
+  #define HEADER_SIZE 512
+diff --color --color -crB qemu-git-base/src/qemu/hw/ide/atapi.c qemu-git/src/qemu/hw/ide/atapi.c
+*** qemu/hw/ide/atapi.c	2022-01-10 18:28:54.760363593 -0500
+--- qemu/hw/ide/atapi.c	2022-01-10 18:42:50.219669523 -0500
+***************
+*** 796,803 ****
+          buf[5] = 0;    /* reserved */
+          buf[6] = 0;    /* reserved */
+          buf[7] = 0;    /* reserved */
+!         padstr8(buf + 8, 8, "QEMU");
+!         padstr8(buf + 16, 16, "QEMU DVD-ROM");
+          padstr8(buf + 32, 4, s->version);
+          idx = 36;
+      }
+--- 796,803 ----
+          buf[5] = 0;    /* reserved */
+          buf[6] = 0;    /* reserved */
+          buf[7] = 0;    /* reserved */
+!         padstr8(buf + 8, 8, "<WOOT>");
+!         padstr8(buf + 16, 16, "DVD-ROM");
+          padstr8(buf + 32, 4, s->version);
+          idx = 36;
+      }
+diff --color --color -crB qemu-git-base/src/qemu/hw/ide/core.c qemu-git/src/qemu/hw/ide/core.c
+*** qemu/hw/ide/core.c	2022-01-10 18:28:54.761363613 -0500
+--- qemu/hw/ide/core.c	2022-01-10 18:42:49.754660791 -0500
+***************
+*** 2558,2570 ****
+      } else {
+          switch (kind) {
+          case IDE_CD:
+!             strcpy(s->drive_model_str, "QEMU DVD-ROM");
+              break;
+          case IDE_CFATA:
+!             strcpy(s->drive_model_str, "QEMU MICRODRIVE");
+              break;
+          default:
+!             strcpy(s->drive_model_str, "QEMU HARDDISK");
+              break;
+          }
+      }
+--- 2558,2570 ----
+      } else {
+          switch (kind) {
+          case IDE_CD:
+!             strcpy(s->drive_model_str, "DVD-ROM");
+              break;
+          case IDE_CFATA:
+!             strcpy(s->drive_model_str, "<WOOT> MICRODRIVE");
+              break;
+          default:
+!             strcpy(s->drive_model_str, "WDC WD20EARS");
+              break;
+          }
+      }
+diff --color --color -crB qemu-git-base/src/qemu/hw/scsi/scsi-disk.c qemu-git/src/qemu/hw/scsi/scsi-disk.c
+*** qemu/hw/scsi/scsi-disk.c	2022-01-10 18:28:54.815364736 -0500
+--- qemu/hw/scsi/scsi-disk.c	2022-01-10 18:42:50.624677129 -0500
+***************
+*** 2393,2399 ****
+          s->version = g_strdup(qemu_hw_version());
+      }
+      if (!s->vendor) {
+!         s->vendor = g_strdup("QEMU");
+      }
+      if (!s->device_id) {
+          if (s->serial) {
+--- 2393,2399 ----
+          s->version = g_strdup(qemu_hw_version());
+      }
+      if (!s->vendor) {
+!         s->vendor = g_strdup("<WOOT>");
+      }
+      if (!s->device_id) {
+          if (s->serial) {
+***************
+*** 2449,2455 ****
+      s->qdev.blocksize = s->qdev.conf.logical_block_size;
+      s->qdev.type = TYPE_DISK;
+      if (!s->product) {
+!         s->product = g_strdup("QEMU HARDDISK");
+      }
+      scsi_realize(&s->qdev, errp);
+  out:
+--- 2449,2455 ----
+      s->qdev.blocksize = s->qdev.conf.logical_block_size;
+      s->qdev.type = TYPE_DISK;
+      if (!s->product) {
+!         s->product = g_strdup("WDC WD20EARS");
+      }
+      scsi_realize(&s->qdev, errp);
+  out:
+***************
+*** 2478,2484 ****
+      s->qdev.type = TYPE_ROM;
+      s->features |= 1 << SCSI_DISK_F_REMOVABLE;
+      if (!s->product) {
+!         s->product = g_strdup("QEMU CD-ROM");
+      }
+      scsi_realize(&s->qdev, errp);
+      aio_context_release(ctx);
+--- 2478,2484 ----
+      s->qdev.type = TYPE_ROM;
+      s->features |= 1 << SCSI_DISK_F_REMOVABLE;
+      if (!s->product) {
+!         s->product = g_strdup("DVD-ROM");
+      }
+      scsi_realize(&s->qdev, errp);
+      aio_context_release(ctx);
+diff --color --color -crB qemu-git-base/src/qemu/hw/usb/dev-wacom.c qemu-git/src/qemu/hw/usb/dev-wacom.c
+*** qemu/hw/usb/dev-wacom.c	2022-01-10 18:28:54.828365006 -0500
+--- qemu/hw/usb/dev-wacom.c	2022-01-10 18:42:51.011684396 -0500
+***************
+*** 172,178 ****
+  
+      if (!s->mouse_grabbed) {
+          s->eh_entry = qemu_add_mouse_event_handler(usb_mouse_event, s, 0,
+!                         "QEMU PenPartner tablet");
+          qemu_activate_mouse_event_handler(s->eh_entry);
+          s->mouse_grabbed = 1;
+      }
+--- 172,178 ----
+  
+      if (!s->mouse_grabbed) {
+          s->eh_entry = qemu_add_mouse_event_handler(usb_mouse_event, s, 0,
+!                         "<WOOT> PenPartner tablet");
+          qemu_activate_mouse_event_handler(s->eh_entry);
+          s->mouse_grabbed = 1;
+      }
+***************
+*** 210,216 ****
+  
+      if (!s->mouse_grabbed) {
+          s->eh_entry = qemu_add_mouse_event_handler(usb_wacom_event, s, 1,
+!                         "QEMU PenPartner tablet");
+          qemu_activate_mouse_event_handler(s->eh_entry);
+          s->mouse_grabbed = 1;
+      }
+--- 210,216 ----
+  
+      if (!s->mouse_grabbed) {
+          s->eh_entry = qemu_add_mouse_event_handler(usb_wacom_event, s, 1,
+!                         "<WOOT> PenPartner tablet");
+          qemu_activate_mouse_event_handler(s->eh_entry);
+          s->mouse_grabbed = 1;
+      }
+***************
+*** 355,361 ****
+      DeviceClass *dc = DEVICE_CLASS(klass);
+      USBDeviceClass *uc = USB_DEVICE_CLASS(klass);
+  
+!     uc->product_desc   = "QEMU PenPartner Tablet";
+      uc->usb_desc       = &desc_wacom;
+      uc->realize        = usb_wacom_realize;
+      uc->handle_reset   = usb_wacom_handle_reset;
+--- 355,361 ----
+      DeviceClass *dc = DEVICE_CLASS(klass);
+      USBDeviceClass *uc = USB_DEVICE_CLASS(klass);
+  
+!     uc->product_desc   = "<WOOT> PenPartner Tablet";
+      uc->usb_desc       = &desc_wacom;
+      uc->realize        = usb_wacom_realize;
+      uc->handle_reset   = usb_wacom_handle_reset;
+***************
+*** 363,369 ****
+      uc->handle_data    = usb_wacom_handle_data;
+      uc->unrealize      = usb_wacom_unrealize;
+      set_bit(DEVICE_CATEGORY_INPUT, dc->categories);
+!     dc->desc = "QEMU PenPartner Tablet";
+      dc->vmsd = &vmstate_usb_wacom;
+  }
+  
+--- 363,369 ----
+      uc->handle_data    = usb_wacom_handle_data;
+      uc->unrealize      = usb_wacom_unrealize;
+      set_bit(DEVICE_CATEGORY_INPUT, dc->categories);
+!     dc->desc = "<WOOT> PenPartner Tablet";
+      dc->vmsd = &vmstate_usb_wacom;
+  }
+  
+diff --color --color -crB qemu-git-base/src/qemu/include/hw/acpi/aml-build.h qemu-git/src/qemu/include/hw/acpi/aml-build.h
+*** qemu/include/hw/acpi/aml-build.h	2022-01-10 18:28:54.847365401 -0500
+--- qemu/include/hw/acpi/aml-build.h	2022-01-10 18:45:37.418797338 -0500
+***************
+*** 4,10 ****
+  #include "hw/acpi/acpi-defs.h"
+  #include "hw/acpi/bios-linker-loader.h"
+  
+! #define ACPI_BUILD_APPNAME6 "BOCHS "
+  #define ACPI_BUILD_APPNAME8 "BXPC    "
+  
+  #define ACPI_BUILD_TABLE_FILE "etc/acpi/tables"
+--- 4,10 ----
+  #include "hw/acpi/acpi-defs.h"
+  #include "hw/acpi/bios-linker-loader.h"
+  
+! #define ACPI_BUILD_APPNAME6 "ALASKA "
+  #define ACPI_BUILD_APPNAME8 "BXPC    "
+  
+  #define ACPI_BUILD_TABLE_FILE "etc/acpi/tables"
+diff --color --color -crB qemu-git-base/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c qemu-git/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c
+*** qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 11:01:52.008026016 -0500
+--- qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 18:47:29.184877118 -0500
+***************
+*** 11,19 ****
+  #include "SmbiosPlatformDxe.h"
+  
+  #define TYPE0_STRINGS \
+!   "EFI Development Kit II / OVMF\0"     /* Vendor */ \
+!   "0.0.0\0"                             /* BiosVersion */ \
+!   "02/06/2015\0"                        /* BiosReleaseDate */
+  //
+  // Type definition and contents of the default Type 0 SMBIOS table.
+  //
+--- 11,19 ----
+  #include "SmbiosPlatformDxe.h"
+  
+  #define TYPE0_STRINGS \
+!   "46620\0"     /* Vendor */ \
+!   "99.99.99\0"                             /* BiosVersion */ \
+!   "08/13/2002\0"                        /* BiosReleaseDate */
+  //
+  // Type definition and contents of the default Type 0 SMBIOS table.
+  //
+diff --color --color -crB qemu-git-base/src/qemu/target/i386/cpu.c qemu-git/src/qemu/target/i386/cpu.c
+*** qemu/target/i386/cpu.c	2022-01-10 18:28:55.036369327 -0500
+--- qemu/target/i386/cpu.c	2022-01-10 18:46:35.858885757 -0500
+***************
+*** 6249,6255 ****
+  
+      /* Hyper-V vendor id */
+      if (!cpu->hyperv_vendor) {
+!         object_property_set_str(OBJECT(cpu), "hv-vendor-id", "Microsoft Hv",
+                                  &error_abort);
+      }
+      len = strlen(cpu->hyperv_vendor);
+--- 6249,6255 ----
+  
+      /* Hyper-V vendor id */
+      if (!cpu->hyperv_vendor) {
+!         object_property_set_str(OBJECT(cpu), "hv-vendor-id", "buttplug",
+                                  &error_abort);
+      }
+      len = strlen(cpu->hyperv_vendor);
