@@ -1,6 +1,6 @@
-diff --color --color -crB qemu-git-base/src/qemu/block/bochs.c qemu-git/src/qemu/block/bochs.c
-*** qemu/block/bochs.c	2022-01-10 18:28:54.659361494 -0500
---- qemu/block/bochs.c	2022-01-10 18:45:09.788281945 -0500
+diff --color -crB qemu-git-base/src/qemu/block/bochs.c qemu-git/src/qemu/block/bochs.c
+*** src/qemu/block/bochs.c	2022-01-10 18:28:54.659361494 -0500
+--- src/qemu/block/bochs.c	2022-01-10 18:45:09.788281945 -0500
 ***************
 *** 31,37 ****
   
@@ -18,9 +18,9 @@ diff --color --color -crB qemu-git-base/src/qemu/block/bochs.c qemu-git/src/qemu
   #define HEADER_VERSION 0x00020000
   #define HEADER_V1 0x00010000
   #define HEADER_SIZE 512
-diff --color --color -crB qemu-git-base/src/qemu/hw/ide/atapi.c qemu-git/src/qemu/hw/ide/atapi.c
-*** qemu/hw/ide/atapi.c	2022-01-10 18:28:54.760363593 -0500
---- qemu/hw/ide/atapi.c	2022-01-10 18:42:50.219669523 -0500
+diff --color -crB qemu-git-base/src/qemu/hw/ide/atapi.c qemu-git/src/qemu/hw/ide/atapi.c
+*** src/qemu/hw/ide/atapi.c	2022-01-10 18:28:54.760363593 -0500
+--- src/qemu/hw/ide/atapi.c	2022-01-10 18:42:50.219669523 -0500
 ***************
 *** 796,803 ****
           buf[5] = 0;    /* reserved */
@@ -40,9 +40,9 @@ diff --color --color -crB qemu-git-base/src/qemu/hw/ide/atapi.c qemu-git/src/qem
           padstr8(buf + 32, 4, s->version);
           idx = 36;
       }
-diff --color --color -crB qemu-git-base/src/qemu/hw/ide/core.c qemu-git/src/qemu/hw/ide/core.c
-*** qemu/hw/ide/core.c	2022-01-10 18:28:54.761363613 -0500
---- qemu/hw/ide/core.c	2022-01-10 18:42:49.754660791 -0500
+diff --color -crB qemu-git-base/src/qemu/hw/ide/core.c qemu-git/src/qemu/hw/ide/core.c
+*** src/qemu/hw/ide/core.c	2022-01-10 18:28:54.761363613 -0500
+--- src/qemu/hw/ide/core.c	2022-01-10 18:42:49.754660791 -0500
 ***************
 *** 2558,2570 ****
       } else {
@@ -72,9 +72,9 @@ diff --color --color -crB qemu-git-base/src/qemu/hw/ide/core.c qemu-git/src/qemu
               break;
           }
       }
-diff --color --color -crB qemu-git-base/src/qemu/hw/scsi/scsi-disk.c qemu-git/src/qemu/hw/scsi/scsi-disk.c
-*** qemu/hw/scsi/scsi-disk.c	2022-01-10 18:28:54.815364736 -0500
---- qemu/hw/scsi/scsi-disk.c	2022-01-10 18:42:50.624677129 -0500
+diff --color -crB qemu-git-base/src/qemu/hw/scsi/scsi-disk.c qemu-git/src/qemu/hw/scsi/scsi-disk.c
+*** src/qemu/hw/scsi/scsi-disk.c	2022-01-10 18:28:54.815364736 -0500
+--- src/qemu/hw/scsi/scsi-disk.c	2022-01-10 18:42:50.624677129 -0500
 ***************
 *** 2393,2399 ****
           s->version = g_strdup(qemu_hw_version());
@@ -126,9 +126,9 @@ diff --color --color -crB qemu-git-base/src/qemu/hw/scsi/scsi-disk.c qemu-git/sr
       }
       scsi_realize(&s->qdev, errp);
       aio_context_release(ctx);
-diff --color --color -crB qemu-git-base/src/qemu/hw/usb/dev-wacom.c qemu-git/src/qemu/hw/usb/dev-wacom.c
-*** qemu/hw/usb/dev-wacom.c	2022-01-10 18:28:54.828365006 -0500
---- qemu/hw/usb/dev-wacom.c	2022-01-10 18:42:51.011684396 -0500
+diff --color -crB qemu-git-base/src/qemu/hw/usb/dev-wacom.c qemu-git/src/qemu/hw/usb/dev-wacom.c
+*** src/qemu/hw/usb/dev-wacom.c	2022-01-10 18:28:54.828365006 -0500
+--- src/qemu/hw/usb/dev-wacom.c	2022-01-10 18:42:51.011684396 -0500
 ***************
 *** 172,178 ****
   
@@ -197,9 +197,9 @@ diff --color --color -crB qemu-git-base/src/qemu/hw/usb/dev-wacom.c qemu-git/src
       dc->vmsd = &vmstate_usb_wacom;
   }
   
-diff --color --color -crB qemu-git-base/src/qemu/include/hw/acpi/aml-build.h qemu-git/src/qemu/include/hw/acpi/aml-build.h
-*** qemu/include/hw/acpi/aml-build.h	2022-01-10 18:28:54.847365401 -0500
---- qemu/include/hw/acpi/aml-build.h	2022-01-10 18:45:37.418797338 -0500
+diff --color -crB qemu-git-base/src/qemu/include/hw/acpi/aml-build.h qemu-git/src/qemu/include/hw/acpi/aml-build.h
+*** src/qemu/include/hw/acpi/aml-build.h	2022-01-10 18:28:54.847365401 -0500
+--- src/qemu/include/hw/acpi/aml-build.h	2022-01-10 18:45:37.418797338 -0500
 ***************
 *** 4,10 ****
   #include "hw/acpi/acpi-defs.h"
@@ -217,33 +217,9 @@ diff --color --color -crB qemu-git-base/src/qemu/include/hw/acpi/aml-build.h qem
   #define ACPI_BUILD_APPNAME8 "BXPC    "
   
   #define ACPI_BUILD_TABLE_FILE "etc/acpi/tables"
-diff --color --color -crB qemu-git-base/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c qemu-git/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c
-*** qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 11:01:52.008026016 -0500
---- qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 18:47:29.184877118 -0500
-***************
-*** 11,19 ****
-  #include "SmbiosPlatformDxe.h"
-  
-  #define TYPE0_STRINGS \
-!   "EFI Development Kit II / OVMF\0"     /* Vendor */ \
-!   "0.0.0\0"                             /* BiosVersion */ \
-!   "02/06/2015\0"                        /* BiosReleaseDate */
-  //
-  // Type definition and contents of the default Type 0 SMBIOS table.
-  //
---- 11,19 ----
-  #include "SmbiosPlatformDxe.h"
-  
-  #define TYPE0_STRINGS \
-!   "46620\0"     /* Vendor */ \
-!   "99.99.99\0"                             /* BiosVersion */ \
-!   "08/13/2002\0"                        /* BiosReleaseDate */
-  //
-  // Type definition and contents of the default Type 0 SMBIOS table.
-  //
-diff --color --color -crB qemu-git-base/src/qemu/target/i386/cpu.c qemu-git/src/qemu/target/i386/cpu.c
-*** qemu/target/i386/cpu.c	2022-01-10 18:28:55.036369327 -0500
---- qemu/target/i386/cpu.c	2022-01-10 18:46:35.858885757 -0500
+diff --color -crB qemu-git-base/src/qemu/target/i386/cpu.c qemu-git/src/qemu/target/i386/cpu.c
+*** src/qemu/target/i386/cpu.c	2022-01-10 18:28:55.036369327 -0500
+--- src/qemu/target/i386/cpu.c	2022-01-10 18:46:35.858885757 -0500
 ***************
 *** 6249,6255 ****
   

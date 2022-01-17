@@ -1,0 +1,24 @@
+diff --color -crB qemu-git-base/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c qemu-git/src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c
+*** src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 11:01:52.008026016 -0500
+--- src/qemu/roms/edk2/OvmfPkg/SmbiosPlatformDxe/SmbiosPlatformDxe.c	2022-01-10 18:47:29.184877118 -0500
+***************
+*** 11,19 ****
+  #include "SmbiosPlatformDxe.h"
+  
+  #define TYPE0_STRINGS \
+!   "EFI Development Kit II / OVMF\0"     /* Vendor */ \
+!   "0.0.0\0"                             /* BiosVersion */ \
+!   "02/06/2015\0"                        /* BiosReleaseDate */
+  //
+  // Type definition and contents of the default Type 0 SMBIOS table.
+  //
+--- 11,19 ----
+  #include "SmbiosPlatformDxe.h"
+  
+  #define TYPE0_STRINGS \
+!   "46620\0"     /* Vendor */ \
+!   "99.99.99\0"                             /* BiosVersion */ \
+!   "08/13/2002\0"                        /* BiosReleaseDate */
+  //
+  // Type definition and contents of the default Type 0 SMBIOS table.
+  //
