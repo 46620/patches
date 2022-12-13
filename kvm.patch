@@ -1,24 +1,6 @@
 *** zen-kernel/arch/x86/kvm/vmx/vmx.c	2022-01-09 17:48:38.210045396 -0500
 --- zen-kernel/arch/x86/kvm/vmx/vmx.c	2022-01-09 19:24:41.174628985 -0500
 ***************
-*** 2565,2571 ****
-  	      CPU_BASED_MWAIT_EXITING |
-  	      CPU_BASED_MONITOR_EXITING |
-  	      CPU_BASED_INVLPG_EXITING |
-! 	      CPU_BASED_RDPMC_EXITING;
-
-  	opt = CPU_BASED_TPR_SHADOW |
-  	      CPU_BASED_USE_MSR_BITMAPS |
---- 2565,2572 ----
-  	      CPU_BASED_MWAIT_EXITING |
-  	      CPU_BASED_MONITOR_EXITING |
-  	      CPU_BASED_INVLPG_EXITING |
-! 	      CPU_BASED_RDPMC_EXITING |
-! 		  CPU_BASED_RDTSC_EXITING;
-
-  	opt = CPU_BASED_TPR_SHADOW |
-  	      CPU_BASED_USE_MSR_BITMAPS |
-***************
 *** 5956,5961 ****
 --- 5956,5996 ----
   	return 1;
