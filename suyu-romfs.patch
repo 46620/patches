@@ -1,4 +1,4 @@
-Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc
+Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on higher versions, will update hash when needed.
 --- suyu-clean/src/suyu/game_list.cpp	2024-03-10 09:42:26.192861686 -0400
 +++ suyu/src/suyu/game_list.cpp	2024-03-10 11:29:36.821442463 -0400
 @@ -563,6 +563,9 @@
