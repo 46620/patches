@@ -1,0 +1,518 @@
+Undo suyu 9afd74abde87339743c4a47dde718584ff368b89
+--- /home/mia/Projects/suyu-clean/src/suyu/main.cpp	2024-03-11 10:22:39.191827409 -0400
++++ /home/mia/Projects/suyu/src/suyu/main.cpp	2024-03-11 10:23:13.274763866 -0400
+@@ -1766,11 +1766,6 @@
+ }
+ 
+ bool GMainWindow::LoadROM(const QString& filename, Service::AM::FrontendAppletParameters params) {
+-    if (!CheckFirmwarePresence()) {
+-        QMessageBox::critical(this, tr("Component Missing"), tr("Missing Firmware."));
+-        return false;
+-    }
+-
+     // Shutdown previous session if the emu thread is still active...
+     if (emu_thread != nullptr) {
+         ShutdownGame();
+--- /home/mia/Projects/suyu-clean/dist/languages/nb.ts	2024-03-11 09:08:26.072736725 -0400
++++ ./dist/languages/nb.ts	2024-03-11 10:06:28.566394077 -0400
+@@ -6303,16 +6303,6 @@
+ Vil du overstyre dette og lukke likevel?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Ingen</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/ar.ts	2024-03-11 09:08:26.046736913 -0400
++++ ./dist/languages/ar.ts	2024-03-11 10:04:36.669670665 -0400
+@@ -6262,11 +6262,6 @@
+         <translation>Component Missing</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>لا شيء</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/pt_BR.ts	2024-03-11 09:08:26.078736682 -0400
++++ ./dist/languages/pt_BR.ts	2024-03-11 10:06:17.535377861 -0400
+@@ -6352,16 +6352,6 @@
+ Deseja ignorar isso e sair mesmo assim?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Nenhum</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/vi.ts	2024-03-11 09:08:26.089736602 -0400
++++ ./dist/languages/vi.ts	2024-03-11 10:06:21.651611513 -0400
+@@ -6300,16 +6300,6 @@
+ Bạn có muốn bỏ qua yêu cầu đó và thoát luôn không?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Không có</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/hu.ts	2024-03-11 09:08:26.063736790 -0400
++++ ./dist/languages/hu.ts	2024-03-11 10:04:39.567953968 -0400
+@@ -6316,16 +6316,6 @@
+ 
+ Mégis ki szeretnél lépni?</translation>
+     </message>
+-        <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+     <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+--- /home/mia/Projects/suyu-clean/dist/languages/es.ts	2024-03-11 09:08:26.057736833 -0400
++++ ./dist/languages/es.ts	2024-03-11 10:04:41.501141909 -0400
+@@ -6350,16 +6350,6 @@
+ ¿Quieres salir de todas formas?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Ninguno</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/id.ts	2024-03-11 09:08:26.064736783 -0400
++++ ./dist/languages/id.ts	2024-03-11 10:04:38.522852026 -0400
+@@ -6335,16 +6335,6 @@
+         <translation type="unfinished"/>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Tak ada</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/sv.ts	2024-03-11 09:08:26.083736646 -0400
++++ ./dist/languages/sv.ts	2024-03-11 10:06:19.188066265 -0400
+@@ -6273,16 +6273,6 @@
+ Vill du strunta i detta och avsluta ändå?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Ingen</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/cs.ts	2024-03-11 09:08:26.050736884 -0400
++++ ./dist/languages/cs.ts	2024-03-11 10:04:44.102393566 -0400
+@@ -6278,16 +6278,6 @@
+ Opravdu si přejete ukončit tuto aplikaci?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Žádné</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/pl.ts	2024-03-11 09:08:26.075736703 -0400
++++ ./dist/languages/pl.ts	2024-03-11 10:06:16.841510082 -0400
+@@ -6294,16 +6294,6 @@
+ Czy chcesz to ominąć i mimo to wyjść?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Żadna (wyłączony)</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/el.ts	2024-03-11 09:08:26.056736841 -0400
++++ ./dist/languages/el.ts	2024-03-11 10:04:42.125202423 -0400
+@@ -6278,16 +6278,6 @@
+         <translation type="unfinished"/>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Κανένα</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/vi_VN.ts	2024-03-11 09:08:26.091736588 -0400
++++ ./dist/languages/vi_VN.ts	2024-03-11 10:06:20.998730741 -0400
+@@ -6300,16 +6300,6 @@
+ Bạn có muốn bỏ qua yêu cầu đó và thoát luôn không?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Trống</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/it.ts	2024-03-11 09:08:26.066736768 -0400
++++ ./dist/languages/it.ts	2024-03-11 10:06:46.058677412 -0400
+@@ -6313,16 +6313,6 @@
+ Vuoi forzare l&apos;arresto?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Nessuna</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/ja_JP.ts	2024-03-11 09:08:26.068736754 -0400
++++ ./dist/languages/ja_JP.ts	2024-03-11 10:06:38.807743155 -0400
+@@ -6299,16 +6299,6 @@
+ 無視してとにかく終了しますか?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>なし</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/de.ts	2024-03-11 09:08:26.053736862 -0400
++++ ./dist/languages/de.ts	2024-03-11 10:04:42.753263219 -0400
+@@ -6304,16 +6304,6 @@
+ Möchtest du dies umgehen und sie trotzdem beenden?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Keiner</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/nl.ts	2024-03-11 09:08:26.074736711 -0400
++++ ./dist/languages/nl.ts	2024-03-11 10:06:15.590648361 -0400
+@@ -6291,16 +6291,6 @@
+ Wil je toch afsluiten?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Geen</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/ko_KR.ts	2024-03-11 09:08:26.070736740 -0400
++++ ./dist/languages/ko_KR.ts	2024-03-11 10:19:03.901032578 -0400
+@@ -6298,16 +6298,6 @@
+ 이를 무시하고 나가시겠습니까?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>없음</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/pt_PT.ts	2024-03-11 09:08:26.079736675 -0400
++++ ./dist/languages/pt_PT.ts	2024-03-11 10:06:18.059278370 -0400
+@@ -6335,16 +6335,6 @@
+ Deseja ignorar isso e sair mesmo assim?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Nenhum</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/zh_CN.ts	2024-03-11 09:08:26.092736581 -0400
++++ ./dist/languages/zh_CN.ts	2024-03-11 10:06:22.341486163 -0400
+@@ -6348,16 +6348,6 @@
+ 您希望忽略并退出吗？</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>无</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/uk.ts	2024-03-11 09:08:26.087736617 -0400
++++ ./dist/languages/uk.ts	2024-03-11 10:06:20.360848407 -0400
+@@ -6307,16 +6307,6 @@
+ Чи хочете ви обійти це і вийти в будь-якому випадку?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Вимкнено</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/ca.ts	2024-03-11 09:08:26.048736898 -0400
++++ ./dist/languages/ca.ts	2024-03-11 10:04:44.731454200 -0400
+@@ -6299,11 +6299,6 @@
+         <translation>Component Missing</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Cap</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/fi.ts	2024-03-11 09:08:26.059736819 -0400
++++ ./dist/languages/fi.ts	2024-03-11 10:04:40.890082606 -0400
+@@ -4778,16 +4778,6 @@
+ 
+ Haluatko silti ohittaa tämän ja sulkea?</translation>
+     </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+ </context>
+ <context>
+     <name>GRenderWindow</name>
+--- /home/mia/Projects/suyu-clean/dist/languages/tr_TR.ts	2024-03-11 09:08:26.085736631 -0400
++++ ./dist/languages/tr_TR.ts	2024-03-11 10:06:19.753960819 -0400
+@@ -6295,16 +6295,6 @@
+ Görmezden gelip kapatmak ister misiniz?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Yok</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/zh_TW.ts	2024-03-11 09:08:26.094736566 -0400
++++ ./dist/languages/zh_TW.ts	2024-03-11 10:19:09.900772218 -0400
+@@ -6344,16 +6344,6 @@
+ 您希望忽略並退出嗎？</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>無</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/da.ts	2024-03-11 09:08:26.052736870 -0400
++++ ./dist/languages/da.ts	2024-03-11 10:04:43.436329250 -0400
+@@ -6282,16 +6282,6 @@
+         <translation type="unfinished"/>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Ingen</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/ru_RU.ts	2024-03-11 09:08:26.082736653 -0400
++++ ./dist/languages/ru_RU.ts	2024-03-11 10:06:18.639169224 -0400
+@@ -6348,16 +6348,6 @@
+ Хотите ли вы обойти это и выйти в любом случае?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Никакой</translation>
+--- /home/mia/Projects/suyu-clean/dist/languages/fr.ts	2024-03-11 09:08:26.061736805 -0400
++++ ./dist/languages/fr.ts	2024-03-11 10:04:40.253020668 -0400
+@@ -6343,16 +6343,6 @@
+ Voulez-vous ignorer ceci and quitter quand même ?</translation>
+     </message>
+     <message>
+-        <location filename="../../src/suyu/main.cpp" line="1763"/>
+-        <source>Component Missing</source>
+-        <translation>Component Missing</translation>
+-    </message>
+-    <message>
+-        <location filename="../../src/suyu/main.cpp" line="1764"/>
+-        <source>Missing Firmware.</source>
+-        <translation>Missing Firmware.</translation>
+-    </message>
+-    <message>
+         <location filename="../../src/suyu/configuration/shared_translation.h" line="27"/>
+         <source>None</source>
+         <translation>Aucune</translation>
