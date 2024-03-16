@@ -1,7 +1,8 @@
-Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on higher versions, will update hash when needed.
+Undo suyu e183fcaf02ab434a5389fde9ae8847dfbe9a1bab
+Last updated: 8755d2bad429c393d693f4b703c1d7e05b1d0770
 --- suyu-clean/src/suyu/game_list.cpp	2024-03-10 09:42:26.192861686 -0400
 +++ suyu/src/suyu/game_list.cpp	2024-03-10 11:29:36.821442463 -0400
-@@ -563,6 +563,9 @@
+@@ -580,6 +580,9 @@
      remove_menu->addSeparator();
      QAction* remove_shader_cache = remove_menu->addAction(tr("Remove All Pipeline Caches"));
      QAction* remove_all_content = remove_menu->addAction(tr("Remove All Installed Contents"));
@@ -11,7 +12,7 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
      QAction* verify_integrity = context_menu.addAction(tr("Verify Integrity"));
      QAction* copy_tid = context_menu.addAction(tr("Copy Title ID to Clipboard"));
      QAction* navigate_to_gamedb_entry = context_menu.addAction(tr("Navigate to GameDB entry"));
-@@ -630,6 +633,12 @@
+@@ -647,6 +647,12 @@
      connect(remove_cache_storage, &QAction::triggered, [this, program_id, path] {
          emit RemoveFileRequested(program_id, GameListRemoveTarget::CacheStorage, path);
      });
@@ -29,7 +30,7 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
 @@ -52,6 +52,11 @@
      CacheStorage,
  };
- 
+
 +enum class DumpRomFSTarget {
 +    Normal,
 +    SDMC,
@@ -38,7 +39,7 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
  enum class GameListShortcutTarget {
      Desktop,
      Applications,
-@@ -112,6 +117,7 @@
+@@ -113,6 +118,7 @@
      void RemoveFileRequested(u64 program_id, GameListRemoveTarget target,
                               const std::string& game_path);
      void RemovePlayTimeRequested(u64 program_id);
@@ -51,7 +52,7 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
 @@ -54,6 +54,18 @@
  #include "suyu/multiplayer/state.h"
  #include "suyu/util/controller_navigation.h"
- 
+
 +// These are wrappers to avoid the calls to CreateDirectory and CreateFile because of the Windows
 +// defines.
 +static FileSys::VirtualDir VfsFilesystemCreateDirectoryWrapper(
@@ -66,8 +67,8 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
 +
  #include <fmt/ostream.h>
  #include <glad/glad.h>
- 
-@@ -1476,6 +1488,7 @@
+
+@@ -1464,6 +1488,7 @@
      connect(game_list, &GameList::RemoveFileRequested, this, &GMainWindow::OnGameListRemoveFile);
      connect(game_list, &GameList::RemovePlayTimeRequested, this,
              &GMainWindow::OnGameListRemovePlayTimeData);
@@ -75,10 +76,10 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
      connect(game_list, &GameList::VerifyIntegrityRequested, this,
              &GMainWindow::OnGameListVerifyIntegrity);
      connect(game_list, &GameList::CopyTIDRequested, this, &GMainWindow::OnGameListCopyTID);
-@@ -2365,6 +2378,68 @@
+@@ -2366,6 +2378,68 @@
      QDesktopServices::openUrl(QUrl::fromLocalFile(qt_shader_cache_path));
  }
- 
+
 +static bool RomFSRawCopy(size_t total_size, size_t& read_size, QProgressDialog& dialog,
 +                         const FileSys::VirtualDir& src, const FileSys::VirtualDir& dest,
 +                         bool full) {
@@ -144,10 +145,10 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
  QString GMainWindow::GetGameListErrorRemoving(InstalledEntryType type) const {
      switch (type) {
      case InstalledEntryType::Game:
-@@ -2606,6 +2681,121 @@
+@@ -2607,6 +2681,121 @@
      Common::FS::RemoveDirRecursively(path);
  }
- 
+
 +void GMainWindow::OnGameListDumpRomFS(u64 program_id, const std::string& game_path,
 +                                      DumpRomFSTarget target) {
 +    const auto failed = [this] {
@@ -266,10 +267,10 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
  void GMainWindow::OnGameListVerifyIntegrity(const std::string& game_path) {
      const auto NotImplemented = [this] {
          QMessageBox::warning(this, tr("Integrity verification couldn't be performed!"),
-@@ -4669,6 +4859,66 @@
+@@ -4677,6 +4859,66 @@
      firmware_label->setToolTip(QString::fromStdString(display_title));
  }
- 
+
 +bool GMainWindow::SelectRomFSDumpTarget(const FileSys::ContentProvider& installed, u64 program_id,
 +                                        u64* selected_title_id, u8* selected_content_record_type) {
 +    using ContentInfo = std::tuple<u64, FileSys::TitleType, FileSys::ContentRecordType>;
@@ -342,8 +343,8 @@ Patch written for suyu d29f3066c49d9643d39b28ea120fb055ac0cb5fc, may work on hig
 +enum class DumpRomFSTarget;
  enum class InstalledEntryType;
  class GameListPlaceholder;
- 
-@@ -347,6 +348,7 @@
+
+@@ -346,6 +348,7 @@
      void OnGameListRemoveInstalledEntry(u64 program_id, InstalledEntryType type);
      void OnGameListRemoveFile(u64 program_id, GameListRemoveTarget target,
                                const std::string& game_path);
